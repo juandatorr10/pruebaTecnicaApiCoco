@@ -10,6 +10,7 @@
 <ul>
     1. /api/pokemons <br>
     2. /api/searchPokemons?ability=4&type=5
+    3. /api/identificationTest/10
 </ul>
 
 

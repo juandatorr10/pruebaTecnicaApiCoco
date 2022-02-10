@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pokemon;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pokemon\PokemonModel;
 use App\Traits\ApiClientTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -43,5 +44,39 @@ class PokemonController extends Controller
         $clearArray = array_unique($pokemons[0], SORT_REGULAR);
 
         return response()->json($clearArray);
+    }
+
+    /**
+     * Method that looks for the pokemon sent by parameter
+     * @param $idPokemon
+     * @return mixed
+     */
+    public function getPokemon($idPokemon){
+        $url_complementary = 'pokemon/'.$idPokemon;
+        $response = $this->apiClient('GET', $url_complementary);
+        $pokemon = json_decode($response->getBody()->getContents());
+        return $pokemon;
+    }
+
+    /**
+     * Method that sends an object to identify the test
+     */
+    public function identificationTest($idPokemon){
+        // Search pokemon
+        $getPokemon = $this->getPokemon($idPokemon);
+
+        // Attributes Object PokemonModel
+        $id = 'juandatorr@gmail.com';
+        $name = $getPokemon->name;
+        $abilities = $getPokemon->abilities;
+        $weight = $getPokemon->weight;
+
+        //Object PokemonModel
+        $pokemon = new PokemonModel($id, $name, $abilities, $weight);
+
+        $response = $this->apiClient('GET', '', $pokemon, 30, 0);
+        $data = $response->getBody()->getContents();
+
+        return response()->json($data);
     }
 }

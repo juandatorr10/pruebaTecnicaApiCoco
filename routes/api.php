@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('pokemons', 'Pokemon\PokemonController@getPokemons');
 Route::get('searchPokemons', 'Pokemon\PokemonController@searchPokemons');
+Route::get('identificationTest/{idPokemon}', 'Pokemon\PokemonController@identificationTest');
