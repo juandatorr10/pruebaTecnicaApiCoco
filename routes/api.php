@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('pokemons', 'Pokemon\PokemonController@getPokemons');
-Route::get('searchPokemons', 'Pokemon\PokemonController@searchPokemons');
-Route::get('identificationTest/{idPokemon}', 'Pokemon\PokemonController@identificationTest');
+Route::group(["middleware" => 'apikey.validate'], function (){
+    Route::get('pokemons', 'Pokemon\PokemonController@getPokemons');
+    Route::get('searchPokemons', 'Pokemon\PokemonController@searchPokemons');
+    Route::get('identificationTest/{idPokemon}', 'Pokemon\PokemonController@identificationTest');
+});
