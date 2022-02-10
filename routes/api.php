@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('pokemones', 'Pokemon\PokemonController@getPokemones');
+Route::get('pokemons', 'Pokemon\PokemonController@getPokemons');
+Route::get('searchPokemons', 'Pokemon\PokemonController@searchPokemons');
