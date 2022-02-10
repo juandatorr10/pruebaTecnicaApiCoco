@@ -38,7 +38,9 @@ class PokemonController extends Controller
         foreach ($urls as $key => $url) {
             $url_complementary = $key.'/'.$url;
             $response = $this->apiClient('GET', $url_complementary);
-            array_push($pokemons, (json_decode($response->getBody()->getContents())->pokemon));
+            if ($response->getStatusCode() != 400) {
+                array_push($pokemons, (json_decode($response->getBody()->getContents())->pokemon));
+            }
         }
 
         $clearArray = array_unique($pokemons[0], SORT_REGULAR);
